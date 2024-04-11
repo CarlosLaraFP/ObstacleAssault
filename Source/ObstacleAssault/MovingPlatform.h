@@ -32,4 +32,13 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TArray<uint32> MyVector = { 1, 2, 3, 4, 5 };
+
+	UPROPERTY(EditAnywhere)
+	float X = 16.99;
+
+	UPROPERTY(EditAnywhere)
+	float Y = 16.01;
+
+	UPROPERTY(EditAnywhere)
+	float XPlusY = 0;
 };
