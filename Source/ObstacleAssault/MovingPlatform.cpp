@@ -16,7 +16,7 @@ void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorLocation(CharacterLocation);
+	SetActorLocation(InitialLocation);
 }
 
 // Called every frame
@@ -24,8 +24,15 @@ void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	CharacterLocation.X += 5.0f;
+	FVector CurrentLocation = GetActorLocation();
 
-	SetActorLocation(CharacterLocation);
+	if (CurrentLocation.X > ReverseThreshold)
+	{
+		Reverse = true;
+	}
+
+	Reverse ? CurrentLocation.X -= 5.0f : CurrentLocation.X += 5.0f;
+
+	SetActorLocation(CurrentLocation);
 }
 

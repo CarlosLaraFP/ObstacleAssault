@@ -25,8 +25,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	FVector CharacterLocation = FVector(-14780.0, -2170.0, 4056.0);
+	FVector InitialLocation = FVector(-14780.0, -2170.0, 4056.0);
 
 	UPROPERTY(EditAnywhere)
-	float X = 0.0f;
+	float ReverseThreshold;
+
+private:
+	bool Reverse = false;
 };
