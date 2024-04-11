@@ -25,20 +25,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	int32 MyInt = 99;
+	FVector CharacterLocation = FVector(-14780.0, -2170.0, 4056.0);
 
 	UPROPERTY(EditAnywhere)
-	bool Next = true;
-
-	UPROPERTY(EditAnywhere)
-	TArray<uint32> MyVector = { 1, 2, 3, 4, 5 };
-
-	UPROPERTY(EditAnywhere)
-	float X = 16.99;
-
-	UPROPERTY(EditAnywhere)
-	float Y = 16.01;
-
-	UPROPERTY(EditAnywhere)
-	float XPlusY = 0;
+	float X = 0.0f;
 };
