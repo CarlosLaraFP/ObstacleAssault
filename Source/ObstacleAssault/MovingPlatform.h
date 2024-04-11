@@ -27,6 +27,6 @@ public:
 	UPROPERTY(EditAnywhere)
 	FVector2D ReverseThreshold;
 
-	UPROPERTY(EditAnywhere)
-	float Displacement = 0.0f;
+	UPROPERTY(EditAnywhere, Category="Physical Properties")
+	FVector Velocity = FVector(0, 0, 0); // UE5 uses centimeters
 };

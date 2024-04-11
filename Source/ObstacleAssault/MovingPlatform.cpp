@@ -27,10 +27,10 @@ void AMovingPlatform::Tick(float DeltaTime)
 	// As we subtract, X gets more positive until it crosses threshold X, and vice-versa.
 	if (CurrentLocation.X >= ReverseThreshold.X || CurrentLocation.X <= ReverseThreshold.Y)
 	{
-		Displacement *= -1;
+		Velocity.X *= -1;
 	}
 
-	CurrentLocation.X += Displacement;
+	CurrentLocation += Velocity * DeltaTime;
 
 	SetActorLocation(CurrentLocation);
 }
