@@ -17,6 +17,13 @@ void AMovingPlatform::BeginPlay()
 	Super::BeginPlay();
 
 	StartLocation = GetActorLocation();
+
+	UE_LOG(LogTemp, Warning, TEXT("Warning test"));
+	UE_LOG(LogTemp, Error, TEXT("Error test: %f"), ReverseDistance);
+
+	FString instanceName = GetActorNameOrLabel();
+
+	UE_LOG(LogTemp, Display, TEXT("%s"), *instanceName);
 }
 
 // Called every frame
