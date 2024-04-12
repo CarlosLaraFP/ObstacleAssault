@@ -15,6 +15,8 @@ AMovingPlatform::AMovingPlatform()
 void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
+
+	StartLocation = GetActorLocation();
 }
 
 // Called every frame
@@ -24,14 +26,18 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 	FVector CurrentLocation = GetActorLocation();
 
-	// As we subtract, X gets more positive until it crosses threshold X, and vice-versa.
-	if (CurrentLocation.X >= ReverseThreshold.X || CurrentLocation.X <= ReverseThreshold.Y)
-	{
-		Velocity.X *= -1;
-	}
-
 	CurrentLocation += Velocity * DeltaTime;
 
 	SetActorLocation(CurrentLocation);
+	
+	if (FVector::Distance(CurrentLocation, StartLocation) > ReverseDistance)
+	{
+		// Prevents overshooting and makes displacement precise
+		StartLocation += Velocity.GetSafeNormal() * ReverseDistance;
+
+		SetActorLocation(StartLocation);
+
+		Velocity *= -1;
+	}
 }
 

@@ -25,8 +25,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	FVector2D ReverseThreshold;
+	double ReverseDistance = 0.0;
+
+	// VisibleAnywhere = readonly in the editor
 
 	UPROPERTY(EditAnywhere, Category="Physical Properties")
 	FVector Velocity = FVector(0, 0, 0); // UE5 uses centimeters
+
+private:
+	FVector StartLocation;
 };
