@@ -24,14 +24,17 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere)
+private:
+	UPROPERTY(EditAnywhere, Category = "Custom Properties")
 	double ReverseDistance = 0.0;
 
 	// VisibleAnywhere = readonly in the editor
 
-	UPROPERTY(EditAnywhere, Category="Physical Properties")
+	UPROPERTY(EditAnywhere, Category="Custom Properties")
 	FVector Velocity = FVector(0, 0, 0); // UE5 uses centimeters
 
-private:
 	FVector StartLocation;
+
+	void Move(float DeltaTime);
+	void Rotate(float DeltaTime);
 };

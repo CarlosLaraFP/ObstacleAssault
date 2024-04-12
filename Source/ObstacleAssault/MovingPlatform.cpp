@@ -26,17 +26,14 @@ void AMovingPlatform::BeginPlay()
 	UE_LOG(LogTemp, Display, TEXT("%s"), *instanceName);
 }
 
-// Called every frame
-void AMovingPlatform::Tick(float DeltaTime)
+void AMovingPlatform::Move(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-
 	FVector CurrentLocation = GetActorLocation();
 
 	CurrentLocation += Velocity * DeltaTime;
 
 	SetActorLocation(CurrentLocation);
-	
+
 	if (FVector::Distance(CurrentLocation, StartLocation) > ReverseDistance)
 	{
 		// Prevents overshooting and makes displacement precise
@@ -46,5 +43,29 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 		Velocity *= -1;
 	}
+}
+
+void AMovingPlatform::Rotate(float DeltaTime)
+{
+	FRotator currentRotation = GetActorRotation();
+
+	FString instanceName = GetName();
+
+	double X = currentRotation.GetComponentForAxis(EAxis::Type::X);
+	double Y = currentRotation.GetComponentForAxis(EAxis::Type::Y);
+	double Z = currentRotation.GetComponentForAxis(EAxis::Type::Z);
+
+	UE_LOG(LogTemp, Display, TEXT("The current rotation of %s is (%f, %f, %f)"), *instanceName, X, Y, Z);
+
+	SetActorRotation(currentRotation);
+}
+
+// Called every frame
+void AMovingPlatform::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	this->Move(DeltaTime);
+	this->Rotate(DeltaTime);
 }
 
