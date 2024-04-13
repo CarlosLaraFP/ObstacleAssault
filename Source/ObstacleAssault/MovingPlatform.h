@@ -25,16 +25,21 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	UPROPERTY(EditAnywhere, Category = "Custom Properties")
+	UPROPERTY(EditAnywhere, Category = "Translation")
 	double ReverseDistance = 0.0;
 
 	// VisibleAnywhere = readonly in the editor
 
-	UPROPERTY(EditAnywhere, Category="Custom Properties")
+	UPROPERTY(EditAnywhere, Category="Translation")
 	FVector Velocity = FVector(0, 0, 0); // UE5 uses centimeters
+
+	UPROPERTY(EditAnywhere, Category="Rotation")
+	FRotator RotationVelocity; // default (0, 0, 0)
 
 	FVector StartLocation;
 
 	void Move(float DeltaTime);
 	void Rotate(float DeltaTime);
+
+	bool ShouldReverse() const;
 };

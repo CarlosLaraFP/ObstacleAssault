@@ -26,6 +26,11 @@ void AMovingPlatform::BeginPlay()
 	UE_LOG(LogTemp, Display, TEXT("%s"), *instanceName);
 }
 
+bool AMovingPlatform::ShouldReverse() const 
+{
+	return FVector::Distance(GetActorLocation(), StartLocation) > ReverseDistance;
+}
+
 void AMovingPlatform::Move(float DeltaTime)
 {
 	FVector CurrentLocation = GetActorLocation();
@@ -34,7 +39,7 @@ void AMovingPlatform::Move(float DeltaTime)
 
 	SetActorLocation(CurrentLocation);
 
-	if (FVector::Distance(CurrentLocation, StartLocation) > ReverseDistance)
+	if (ShouldReverse())
 	{
 		// Prevents overshooting and makes displacement precise
 		StartLocation += Velocity.GetSafeNormal() * ReverseDistance;
@@ -47,17 +52,18 @@ void AMovingPlatform::Move(float DeltaTime)
 
 void AMovingPlatform::Rotate(float DeltaTime)
 {
-	FRotator currentRotation = GetActorRotation();
+	// Sets new rotation accounting for wraparounds
+	AddActorLocalRotation(RotationVelocity * DeltaTime);
 
-	FString instanceName = GetName();
+	FRotator CurrentRotation = GetActorRotation();
 
-	double X = currentRotation.GetComponentForAxis(EAxis::Type::X);
-	double Y = currentRotation.GetComponentForAxis(EAxis::Type::Y);
-	double Z = currentRotation.GetComponentForAxis(EAxis::Type::Z);
+	double X = CurrentRotation.GetComponentForAxis(EAxis::Type::X);
+	double Y = CurrentRotation.GetComponentForAxis(EAxis::Type::Y);
+	double Z = CurrentRotation.GetComponentForAxis(EAxis::Type::Z);
 
-	UE_LOG(LogTemp, Display, TEXT("The current rotation of %s is (%f, %f, %f)"), *instanceName, X, Y, Z);
+	FString InstanceName = GetName();
 
-	SetActorRotation(currentRotation);
+	UE_LOG(LogTemp, Display, TEXT("The current rotation of %s is (%f, %f, %f)"), *InstanceName, X, Y, Z);
 }
 
 // Called every frame
