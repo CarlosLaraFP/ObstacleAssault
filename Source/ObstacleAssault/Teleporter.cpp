@@ -28,9 +28,9 @@ void ATeleporter::Tick(float DeltaTime)
 }
 
 void ATeleporter::OnOverlapBegin(
-    UPrimitiveComponent* OverlappedComp, 
+    UPrimitiveComponent* OverlappedComponent, 
     AActor* OtherActor, 
-    UPrimitiveComponent* OtherComp, 
+    UPrimitiveComponent* OtherComponent, 
     int32 OtherBodyIndex, 
     bool bFromSweep, 
     const FHitResult& SweepResult
